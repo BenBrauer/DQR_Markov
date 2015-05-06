@@ -2,15 +2,16 @@ package controllers
 
 import play.api._
 import play.api.mvc._
+import model.data._
 
 object Application extends Controller {
 
   def index = Action {
-    Ok(views.html.index("Your new application is ready."))
+    Ok(views.html.index())
   }
   
   def browser = Action {
-    Ok(views.html.browser())
+    Ok(views.html.browser(Dataset.all))
   }
   
   def ruleGenerator = Action {

@@ -1,3 +1,14 @@
+@import model.data._
+@(datasets: List[Dataset])
+
 @main("Databrowser") { 
-	<h1>Databrowser</h1>
+	<h1>@datasets.size Datasets</h1>
+	
+	 <ul>
+        @datasets.map { dataset =>
+            <li>
+                @dataset.label
+            </li>
+        }
+    </ul>
 }
