@@ -2,13 +2,20 @@
 @(datasets: List[Dataset])
 
 @main("Databrowser") { 
-	<h1>@datasets.size Datasets</h1>
+	<h1>@datasets.size Datasets:</h1>
 	
 	 <ul>
         @datasets.map { dataset =>
             <li>
-                @dataset.label
+                Dataset "@dataset.label" <br/>Relations:
+                <ul>
+                @dataset.relations.map { relation =>
+                	<li><a href="/browser/relation/id/@relation.id">@relation.label</a></li>	
+               	}
+               	</ul>
             </li>
         }
     </ul>
+    
+    <a href="/browser/new/dataset">Create new dataset</a>
 }

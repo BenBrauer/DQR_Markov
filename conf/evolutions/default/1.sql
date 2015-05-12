@@ -14,17 +14,23 @@ INSERT INTO dataset (label) VALUES ('test2');
 CREATE SEQUENCE relation_id_seq;
 CREATE TABLE relation (
     id integer NOT NULL DEFAULT nextval('relation_id_seq'),
+    label varchar(255),
     data clob,
     dataset_id integer,
     FOREIGN KEY(dataset_id) REFERENCES dataset(id)
     
 );
 
+INSERT INTO relation (label, data, dataset_id) VALUES ('test1_r1',STRINGDECODE('column1,column2,column3\r\nhello,world,foo\r\nbar,this,is\r\na,csv,textr'),1);
+INSERT INTO relation (label, data, dataset_id) VALUES ('test1_r2',STRINGDECODE('column1,column2,column3\r\nhello,world,foo\r\nbar,this,is\r\na,csv,textr'),1);
+INSERT INTO relation (label, data, dataset_id) VALUES ('test1_r3',STRINGDECODE('column1,column2,column3\r\nhello,world,foo\r\nbar,this,is\r\na,csv,textr'),1);
+INSERT INTO relation (label, data, dataset_id) VALUES ('test2_r1',STRINGDECODE('column1,column2,column3\r\nhello,world,foo\r\nbar,this,is\r\na,csv,textr'),2);
+INSERT INTO relation (label, data, dataset_id) VALUES ('test2_r2',STRINGDECODE('column1,column2,column3\r\nhello,world,foo\r\nbar,this,is\r\na,csv,textr')	,2); 
  
 # --- !Downs
  
 DROP TABLE dataset;
-DROP SEQUENCE dastset_id_seq;
+DROP SEQUENCE dataset_id_seq;
 
 DROP TABLE relation;
 DROP SEQUENCE relation_id_seq;

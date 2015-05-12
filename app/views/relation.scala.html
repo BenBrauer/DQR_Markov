@@ -1,0 +1,29 @@
+@import model.data._
+@(relation: Relation)
+
+@main("Relation " + relation.label) {
+	<a>
+		@{println(relation.parseData mkString "\n")}
+		@{println(List("a","b","c") mkString "\n")}
+	</a>
+	<table>
+		@defining(relation.parseData) {data => 
+		<thead>
+			<tr>
+			@data.head.map { case(k,v) =>
+				<td>@k</td>
+			}
+			</tr>
+		</thead>
+		<tbody>
+		@data.map { row =>
+		<tr>
+			@row.map { case(k,v) =>
+				<td>@v</td>
+			}
+		</tr> 
+		}
+		</tbody>
+	}
+	</table>
+}
