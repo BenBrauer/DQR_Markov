@@ -29,6 +29,22 @@ object Relation {
       }
   }
   
+  def create(label: String, data: String, dataset_id: Long) = {
+    DB.withConnection { implicit c => 
+      SQL("INSERT INTO relation (label, data, dataset_id) VALUES ({label},{data},{dataset_id})")
+        .on("label" -> label,
+            "data" -> data,
+            "dataset_id" -> dataset_id)
+        .executeInsert()
+      }
+  }
+  
+  def delete(id: Long) = {
+    DB.withConnection { implicit c => SQL("DELETE FROM relation WHERE id = {id}")
+      .on("id" -> id)
+      .execute()}
+  }
+  
   def byId(id: Long) : Relation= 
     DB.withConnection { implicit c => SQL("SELECT * FROM relation WHERE id = {id}").on("id" -> id).as(relation single)}
   

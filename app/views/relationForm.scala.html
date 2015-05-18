@@ -1,0 +1,15 @@
+@import model.data._
+@import helper._
+@import controllers._
+
+@(relationForm:Form[Browser.RelationData], dataset_id: Long)
+
+@main("Create Relation") { 
+	@form(action = routes.Browser.createRelation) {
+		@inputText(relationForm("label"))
+		@textarea(relationForm("data"))
+   		<input type="hidden" name="dataset_id" id="dataset_id" value="@dataset_id" />
+		<input type="submit" value="Submit">
+	}
+	
+}

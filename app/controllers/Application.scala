@@ -11,7 +11,7 @@ object Application extends Controller {
   }
   
   def browser = Action {
-    Ok(views.html.browser(Dataset.all))
+    Ok(views.html.browser(Dataset.all,Browser.datasetForm))
   }
   
   def ruleGenerator = Action {

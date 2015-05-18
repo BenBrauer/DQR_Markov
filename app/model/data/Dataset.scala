@@ -26,8 +26,21 @@ object Dataset {
     SQL("SELECT * FROM dataset").as(dataset *)
   }
   
-  def add(label: String) = {
-    //TODO
+  def create(label: String) = {
+    DB.withConnection { implicit c => 
+      SQL("INSERT INTO dataset (label) VALUES ({label})")
+        .on("label" -> label)
+        .executeInsert()
+      }
+  }
+  
+  def delete(id: Long) = {
+    DB.withConnection { implicit c => SQL("DELETE FROM dataset WHERE id = {id}")
+      .on("id" -> id)
+      .execute()}
+    DB.withConnection { implicit c => SQL("DELETE FROM relation WHERE dataset_id = {id}")
+      .on("id" -> id)
+      .execute()}
   }
   
   def byLabel(label: String): Dataset = 

@@ -1,21 +1,38 @@
 @import model.data._
-@(datasets: List[Dataset])
+@import helper._
+@import controllers._
+
+@(datasets: List[Dataset], datasetForm:Form[Browser.DatasetData])
 
 @main("Databrowser") { 
-	<h1>@datasets.size Datasets:</h1>
+	<h1>@datasets.size datasets:</h1>
 	
 	 <ul>
         @datasets.map { dataset =>
             <li>
-                Dataset "@dataset.label" <br/>Relations:
+                Dataset "@dataset.label"
+                <a href="/browser/delete/dataset/id/@dataset.id">delete</a>
+                <a href="/browser/new/relation/dataset/id/@dataset.id">add new relation</a> 
+                <br/>Relations:
                 <ul>
                 @dataset.relations.map { relation =>
-                	<li><a href="/browser/relation/id/@relation.id">@relation.label</a></li>	
+                	<li>
+                		<a href="/browser/relation/id/@relation.id">@relation.label</a>
+                		<a href="/browser/delete/relation/id/@relation.id">delete</a>
+               		</li>	
                	}
                	</ul>
             </li>
         }
     </ul>
     
-    <a href="/browser/new/dataset">Create new dataset</a>
+    <h2>Create new dataset</h2>
+    @form(action = routes.Browser.createDataset) {
+    	@inputText(datasetForm("label"))
+    
+	    <p>
+	        <input type="submit" value="Submit">
+	    </p>
+    
+	}
 }
