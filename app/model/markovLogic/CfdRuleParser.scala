@@ -19,4 +19,5 @@ class CfdRuleParser(cfdRule: CfdRule) extends RegexParsers {
   def apply(input: String): CfdRule = parseAll(rule, input) match {
     case Success(result, _) => result
     case failure : NoSuccess => scala.sys.error(failure.msg)
+  }
 }

@@ -1,0 +1,17 @@
+@import model.data._
+@import helper._
+@import controllers._
+
+@(ruleForm:Form[Rules.RuleData],title:String, saveAction:play.api.mvc.Call, relation_id:Long)
+
+@main(title) {
+	@form(action = saveAction) {
+		@inputText(ruleForm("label"))
+		@inputText(ruleForm("rule"))
+   		<input type="hidden" name="relation_id" id="relation_id" value="@relation_id" />
+		@input(ruleForm("id")) { (id, name, value, args) =>
+    		<input type="hidden" name="@name" id="@id" value="@value" @toHtmlArgs(args)>
+		}
+		<input type="submit" value="Submit">
+	}
+} 

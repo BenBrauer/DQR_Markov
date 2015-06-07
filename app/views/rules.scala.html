@@ -1,0 +1,24 @@
+@import model.data._
+@import helper._
+@import controllers._
+
+@(relation: Relation)
+
+@main("Rules for relation" + relation.label) {
+<h1>Rules for relation @relation.label</h1>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Rule</th>
+    <th></th>
+  </tr>
+  @relation.rules.map { rule => 
+  <tr>
+    <td>@rule.label</td>
+    <td>@rule.rule</td>
+    <td><a href="/rules/edit/rule/id/@rule.id">edit</a> <a href="/rules/delete/rule/id/@rule.id">delete</a></td>
+  </tr>
+  }
+</table>
+<a href="/rules/new/rule/relation/id/@relation.id">Add new rule</a>
+} 

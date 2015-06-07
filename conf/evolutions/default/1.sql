@@ -36,6 +36,10 @@ CREATE TABLE rule (
 	FOREIGN KEY (relation_id) REFERENCES relation(id)
 );
 
+INSERT INTO rule (label, rule, relation_id) VALUES ('rule1_r1', 'TEST',1);
+INSERT INTO rule (label, rule, relation_id) VALUES ('rule2_r1', 'TEST',1);
+INSERT INTO rule (label, rule, relation_id) VALUES ('rule1_r2', 'TEST',2);
+INSERT INTO rule (label, rule, relation_id) VALUES ('rule2_r2', 'TEST',2);
 
 # --- !Downs
  

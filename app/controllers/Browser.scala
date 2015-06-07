@@ -45,7 +45,7 @@ object Browser extends Controller {
     
      
   def newRelation(dataset_id: Long) = Action {
-	  Ok.(views.html.relationForm(relationForm,dataset_id))
+	  Ok(views.html.relationForm(relationForm,dataset_id))
   }
     
    def createRelation() = Action { implicit request => 
