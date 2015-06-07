@@ -16,6 +16,9 @@ case class Relation(id: Long, label: String, data: String, dataset_id: Long) {
   }
   /*def parseData() : List[Map[String,String]] = List(Map( "column1" -> "hello","column2" -> "world"),Map( "column1" -> "foo","column2" -> "bar"))*/
   
+   def rules(): List[Rule] = DB.withConnection { implicit c =>
+    SQL("SELECT * FROM rule WHERE relation_id = {relation_id}").on("relation_id" -> this.id).as(Rule.rule *)
+  }
 }
 
 object Relation {

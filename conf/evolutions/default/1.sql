@@ -26,7 +26,17 @@ INSERT INTO relation (label, data, dataset_id) VALUES ('test1_r2',STRINGDECODE('
 INSERT INTO relation (label, data, dataset_id) VALUES ('test1_r3',STRINGDECODE('column1,column2,column3\r\nhello,world,foo\r\nbar,this,is\r\na,csv,textr'),1);
 INSERT INTO relation (label, data, dataset_id) VALUES ('test2_r1',STRINGDECODE('column1,column2,column3\r\nhello,world,foo\r\nbar,this,is\r\na,csv,textr'),2);
 INSERT INTO relation (label, data, dataset_id) VALUES ('test2_r2',STRINGDECODE('column1,column2,column3\r\nhello,world,foo\r\nbar,this,is\r\na,csv,textr')	,2); 
- 
+
+CREATE SEQUENCE rule_id_seq;
+CREATE TABLE rule (
+	id integer NOT NULL DEFAULT nextval('rule_id_seq'),
+	label varchar(255),
+	rule varchar(500),
+	relation_id integer,
+	FOREIGN KEY (relation_id) REFERENCES relation(id)
+);
+
+
 # --- !Downs
  
 DROP TABLE dataset;
@@ -34,3 +44,6 @@ DROP SEQUENCE dataset_id_seq;
 
 DROP TABLE relation;
 DROP SEQUENCE relation_id_seq;
+
+DROP TABLE rule;
+DROP SEQUENCE rule_id_seq;
