@@ -18,7 +18,7 @@ GET 	/rules/relation/id/:id	controllers.Rules.rules(id: Long)
 GET		/rules/new/rule/relation/id/:id controllers.Rules.newRule(id: Long)
 GET		/rules/edit/rule/id/:id		controllers.Rules.editRule(id: Long)
 GET		/rules/delete/rule/id/:id	controllers.Rules.deleteRule(id: Long)
-POST	/rules/create/rule			controllers.Rules.createRule
+POST	/rules/create/rule/relation/id/:id	controllers.Rules.createRule(id: Long)
 POST	/rules/update/rule	controllers.Rules.updateRule
 
 # Map static resources from the /public folder to the /assets URL path

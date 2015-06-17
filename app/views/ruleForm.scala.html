@@ -9,9 +9,7 @@
 		@inputText(ruleForm("label"))
 		@inputText(ruleForm("rule"))
    		<input type="hidden" name="relation_id" id="relation_id" value="@relation_id" />
-		@input(ruleForm("id")) { (id, name, value, args) =>
-    		<input type="hidden" name="@name" id="@id" value="@value" @toHtmlArgs(args)>
-		}
-		<input type="submit" value="Submit">
+		<input type = "hidden" name="id" id="id" value="@ruleForm("id").value.getOrElse("").toString()" />
+		<input type="submit" value="Save">
 	}
 } 

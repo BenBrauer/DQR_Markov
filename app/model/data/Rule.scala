@@ -32,7 +32,7 @@ object Rule {
   
   def update(id: Long, label: String, rule: String) = {
     DB.withConnection { implicit c => 
-      SQL("UPDATE rule SET label = {label}, rule  = {rule}  WHERE id = {id})")
+      SQL("UPDATE rule SET label = {label}, rule  = {rule}  WHERE id = {id}")
         .on("label" -> label,
             "rule" -> rule,
             "id" -> id)
