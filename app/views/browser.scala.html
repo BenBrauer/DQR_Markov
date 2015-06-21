@@ -4,30 +4,32 @@
 
 @(datasets: List[Dataset], datasetForm:Form[Browser.DatasetData])
 
-@main("Databrowser") { 
-	<h1>@datasets.size datasets:</h1>
-	
-	 <ul>
-        @datasets.map { dataset =>
-            <li>
-                Dataset "@dataset.label"
-                <a href="/browser/delete/dataset/id/@dataset.id">delete</a>
-                <a href="/browser/new/relation/dataset/id/@dataset.id">add new relation</a> 
-                <br/>Relations:
-                <ul>
-                @dataset.relations.map { relation =>
-                	<li>
-                		<a href="/browser/relation/id/@relation.id">@relation.label</a>
-                		<a href="/browser/delete/relation/id/@relation.id">delete</a>
-               		</li>	
-               	}
-               	</ul>
-            </li>
-            <a href="/rules/dataset/id/@dataset.id">Show Rules</a>
-            <a>Output Markov Logic</a>
-        }
-    </ul>
-    
+@main("Databrowser") {
+	<div class="page-header">
+		<h1>@datasets.size datasets:</h1>
+	</div> 
+	<p>
+		 <ul>
+	        @datasets.map { dataset =>
+	            <li>
+	                Dataset "@dataset.label"
+	                <a href="/browser/delete/dataset/id/@dataset.id">delete</a>
+	                <a href="/browser/new/relation/dataset/id/@dataset.id">add new relation</a> 
+	                <br/>Relations:
+	                <ul>
+	                @dataset.relations.map { relation =>
+	                	<li>
+	                		<a href="/browser/relation/id/@relation.id">@relation.label</a>
+	                		<a href="/browser/delete/relation/id/@relation.id">delete</a>
+	               		</li>	
+	               	}
+	               	</ul>
+	            </li>
+	            <a href="/rules/dataset/id/@dataset.id">Show Rules</a>
+	            <a>Output Markov Logic</a>
+	        }
+	    </ul>
+    <p>
     <h2>Create new dataset</h2>
     @form(action = routes.Browser.createDataset) {
     	@inputText(datasetForm("label"))

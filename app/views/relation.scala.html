@@ -6,24 +6,26 @@
 		@{println(relation.parseData mkString "\n")}
 		@{println(List("a","b","c") mkString "\n")}
 	</a>
-	<table>
-		@defining(relation.parseData) {data => 
-		<thead>
+	<div class="row	">
+		<table class="table table-striped">
+			@defining(relation.parseData) {data => 
+			<thead>
+				<tr>
+				@data.head.map { case(k,v) =>
+					<th>@k</th>
+				}
+				</tr>
+			</thead>
+			<tbody>
+			@data.map { row =>
 			<tr>
-			@data.head.map { case(k,v) =>
-				<td>@k</td>
+				@row.map { case(k,v) =>
+					<td>@v</td>
+				}
+			</tr> 
 			}
-			</tr>
-		</thead>
-		<tbody>
-		@data.map { row =>
-		<tr>
-			@row.map { case(k,v) =>
-				<td>@v</td>
-			}
-		</tr> 
+			</tbody>
 		}
-		</tbody>
-	}
-	</table>
+		</table>
+	</div>
 }

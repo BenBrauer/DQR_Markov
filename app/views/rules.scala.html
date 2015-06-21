@@ -6,19 +6,23 @@
 
 @main("Rules for dataset" + dataset.label) {
 <h1>Rules for dataset @dataset.label</h1>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Rule</th>
-    <th></th>
-  </tr>
-  @dataset.rules.map { rule => 
-  <tr>
-    <td>@rule.label</td>
-    <td>@rule.rule</td>
-    <td><a href="/rules/edit/rule/id/@rule.id">edit</a> <a href="/rules/delete/rule/id/@rule.id">delete</a></td>
-  </tr>
-  }
-</table>
+<div class="row">
+	<table  class="table table-striped">
+	  <tr>
+	    <th>Name</th>
+	    <th>Rule</th>
+	    <th></th>
+	  </tr>
+	  @dataset.rules.map { rule => 
+	  <tr>
+	    <td>@rule.label</td>
+	    <td>@rule.rule</td>
+	    <td><a href="/rules/edit/rule/id/@rule.id">edit</a> <a href="/rules/delete/rule/id/@rule.id">delete</a></td>
+	  </tr>
+	  }
+	</table>
+</div>
+<p>
 <a href="/rules/new/rule/dataset/id/@dataset.id">Add new rule</a>
+</p>
 } 

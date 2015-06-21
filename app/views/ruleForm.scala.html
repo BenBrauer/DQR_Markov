@@ -10,6 +10,6 @@
 		@inputText(ruleForm("rule"))
    		<input type="hidden" name="dataset_id" id="dataset_id" value="@dataset_id" />
 		<input type = "hidden" name="id" id="id" value="@ruleForm("id").value.getOrElse("").toString()" />
-		<input type="submit" value="Save">
+		<button type="submit" class="btn btn-primary" value="Save">save</button>
 	}
 } 
