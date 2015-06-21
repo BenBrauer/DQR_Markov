@@ -2,13 +2,13 @@
 @import helper._
 @import controllers._
 
-@(ruleForm:Form[Rules.RuleData],title:String, saveAction:play.api.mvc.Call, relation_id:Long)
+@(ruleForm:Form[Rules.RuleData],title:String, saveAction:play.api.mvc.Call, dataset_id:Long)
 
 @main(title) {
 	@form(action = saveAction) {
 		@inputText(ruleForm("label"))
 		@inputText(ruleForm("rule"))
-   		<input type="hidden" name="relation_id" id="relation_id" value="@relation_id" />
+   		<input type="hidden" name="dataset_id" id="dataset_id" value="@dataset_id" />
 		<input type = "hidden" name="id" id="id" value="@ruleForm("id").value.getOrElse("").toString()" />
 		<input type="submit" value="Save">
 	}

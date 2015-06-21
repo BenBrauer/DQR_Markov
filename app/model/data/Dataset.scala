@@ -11,6 +11,10 @@ case class Dataset (id: Long, label: String) {
   def relations(): List[Relation] = DB.withConnection { implicit c =>
     SQL("SELECT * FROM relation WHERE dataset_id = {dataset_id}").on("dataset_id" -> this.id).as(Relation.relation *)
   }
+  
+  def rules(): List[Rule] = DB.withConnection { implicit c =>
+    SQL("SELECT * FROM rule WHERE dataset_id = {dataset_id}").on("dataset_id" -> this.id).as(Rule.rule *)
+  }
 }
 
 object Dataset {
@@ -41,13 +45,16 @@ object Dataset {
     DB.withConnection { implicit c => SQL("DELETE FROM relation WHERE dataset_id = {id}")
       .on("id" -> id)
       .execute()}
+    DB.withConnection { implicit c => SQL("DELETE FROM rule WHERE dataset_id = {id}")
+      .on("id" -> id)
+      .execute()}
   }
   
   def byLabel(label: String): Dataset = 
     DB.withConnection { implicit c => SQL("SELECT * FROM dataset WHERE label = {label}").on("label" -> label).as(dataset single)}
   
   
-  def byId(id: Int): Dataset = 
+  def byId(id: Long): Dataset = 
     DB.withConnection { implicit c => SQL("SELECT * FROM dataset WHERE id = {id}").on("id" -> id).as(dataset single)}
   
     

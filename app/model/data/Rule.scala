@@ -5,7 +5,7 @@ import anorm.SqlParser._
 import play.api.db._
 import play.api.Play.current
 
-case class Rule (id: Long, label: String, rule: String, relation_id: Long) {
+case class Rule (id: Long, label: String, rule: String, dataset_id: Long) {
   
 }
 
@@ -15,17 +15,17 @@ object Rule {
     get[Long]("id") ~ 
     get[String]("label") ~
     get[String]("rule") ~
-    get[Long]("relation_id")map {
-      case id~label~rule~relation_id => Rule(id,label,rule,relation_id)
+    get[Long]("dataset_id")map {
+      case id~label~rule~dataset_id => Rule(id,label,rule,dataset_id)
       }
   }
   
-  def create(label: String, rule: String, relation_id: Long) = {
+  def create(label: String, rule: String, dataset_id: Long) = {
       DB.withConnection { implicit c => 
-      SQL("INSERT INTO rule (label, rule, relation_id) VALUES ({label},{rule},{relation_id})")
+      SQL("INSERT INTO rule (label, rule, dataset_id) VALUES ({label},{rule},{dataset_id})")
         .on("label" -> label,
             "rule" -> rule,
-            "relation_id" -> relation_id)
+            "dataset_id" -> dataset_id)
         .executeInsert()
       }
   }

@@ -18,12 +18,13 @@
                 @dataset.relations.map { relation =>
                 	<li>
                 		<a href="/browser/relation/id/@relation.id">@relation.label</a>
-                		<a href="/rules/relation/id/@relation.id">rules</a>
                 		<a href="/browser/delete/relation/id/@relation.id">delete</a>
                		</li>	
                	}
                	</ul>
             </li>
+            <a href="/rules/dataset/id/@dataset.id">Show Rules</a>
+            <a>Output Markov Logic</a>
         }
     </ul>
     

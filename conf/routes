@@ -14,11 +14,11 @@ GET		/browser/create/relation	controllers.Browser.createRelation
 GET		/browser/new/relation/dataset/id/:id		controllers.Browser.newRelation(id: Long)
 GET		/browser/delete/relation/id/:id		controllers.Browser.deleteRelation(id: Long)
 
-GET 	/rules/relation/id/:id	controllers.Rules.rules(id: Long)
-GET		/rules/new/rule/relation/id/:id controllers.Rules.newRule(id: Long)
+GET 	/rules/dataset/id/:id	controllers.Rules.rules(id: Long)
+GET		/rules/new/rule/dataset/id/:id controllers.Rules.newRule(id: Long)
 GET		/rules/edit/rule/id/:id		controllers.Rules.editRule(id: Long)
 GET		/rules/delete/rule/id/:id	controllers.Rules.deleteRule(id: Long)
-POST	/rules/create/rule/relation/id/:id	controllers.Rules.createRule(id: Long)
+POST	/rules/create/rule/dataset/id/:id	controllers.Rules.createRule(id: Long)
 POST	/rules/update/rule	controllers.Rules.updateRule
 
 # Map static resources from the /public folder to the /assets URL path

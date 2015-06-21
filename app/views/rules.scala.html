@@ -2,17 +2,17 @@
 @import helper._
 @import controllers._
 
-@(relation: Relation)
+@(dataset: Dataset)
 
-@main("Rules for relation" + relation.label) {
-<h1>Rules for relation @relation.label</h1>
+@main("Rules for dataset" + dataset.label) {
+<h1>Rules for dataset @dataset.label</h1>
 <table>
   <tr>
     <th>Name</th>
     <th>Rule</th>
     <th></th>
   </tr>
-  @relation.rules.map { rule => 
+  @dataset.rules.map { rule => 
   <tr>
     <td>@rule.label</td>
     <td>@rule.rule</td>
@@ -20,5 +20,5 @@
   </tr>
   }
 </table>
-<a href="/rules/new/rule/relation/id/@relation.id">Add new rule</a>
+<a href="/rules/new/rule/dataset/id/@dataset.id">Add new rule</a>
 } 
