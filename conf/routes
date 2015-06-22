@@ -6,7 +6,6 @@
 GET     /                           controllers.Application.index
 
 GET     /browser					controllers.Application.browser
-GET     /generator					controllers.Application.ruleGenerator
 GET 	/browser/relation/id/:id    controllers.Browser.relation(id: Long)
 GET		/browser/create/dataset		controllers.Browser.createDataset
 GET		/browser/delete/dataset/id/:id	controllers.Browser.deleteDataset(id: Long)
@@ -20,6 +19,8 @@ GET		/rules/edit/rule/id/:id		controllers.Rules.editRule(id: Long)
 GET		/rules/delete/rule/id/:id	controllers.Rules.deleteRule(id: Long)
 POST	/rules/create/rule/dataset/id/:id	controllers.Rules.createRule(id: Long)
 POST	/rules/update/rule	controllers.Rules.updateRule
+
+GET		/markovLogic/relation/id/:id controllers.Browser.markovLogicRelation(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

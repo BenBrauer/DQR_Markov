@@ -59,25 +59,9 @@ object Browser extends Controller {
     Redirect("/browser")
   }
   
- /* def upload = Action(parse.multipartFormData) { request =>
-    request.body.file("relation").map { relation =>
-        import java.io.File
-        val filename = relation.filename 
-        val contentType = relation.contentType
-        relation.ref.moveTo(new File("/tmp/picture"))
-        Ok("File uploaded")
-      }.getOrElse {
-        Redirect(routes.Application.index).flashing(
-        " error" -> "Missing file"
-      )
-    } 
+  def markovLogicRelation(id: Long) = Action {
+    val relation = Relation.byId(id)
+    Ok(relation.toMarkovLogic)
   }
-  
-  val datasetForm = Form(
-      mapping (
-        "label" -> text verifying(required, maxLength(255),nonEmpty),
-        "id" -> number verifying(required)
-      )(Dataset.apply)(Dataset.unapply)
-    )*/
   
 } 

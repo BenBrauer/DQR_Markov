@@ -14,11 +14,21 @@ case class Relation(id: Long, label: String, data: String, dataset_id: Long) {
     val parser = new CSV()
     parser.parse(this.data)
   }
-  /*def parseData() : List[Map[String,String]] = List(Map( "column1" -> "hello","column2" -> "world"),Map( "column1" -> "foo","column2" -> "bar"))*/
   
-   
+  def toMarkovLogic(): String =  {
+    val parser = new CSV()
+    val data = parser.parse(this.data)
+    val (logic, index) = data.foldLeft(("",1))({
+      case ((relationMarkovLogic,rowIndex),row) => {
+        val rowMarkovLogic = row.foldLeft("")({
+          case (logic,(column, value)) => logic + "\n" + column + "(" + rowIndex.toString() + "," + value +")"
+        })
+        (relationMarkovLogic + rowMarkovLogic, rowIndex + 1)
+      }
+    })
+    return logic
+  }
 }
-
 object Relation {
   
   val relation = {

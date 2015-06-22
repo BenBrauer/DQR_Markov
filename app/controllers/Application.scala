@@ -7,14 +7,11 @@ import model.data._
 object Application extends Controller {
 
   def index = Action {
-    Ok(views.html.index())
+   Ok(views.html.browser(Dataset.all,Browser.datasetForm))
   }
   
   def browser = Action {
     Ok(views.html.browser(Dataset.all,Browser.datasetForm))
   }
   
-  def ruleGenerator = Action {
-    Ok(views.html.ruleGenerator())
-  }
 }
