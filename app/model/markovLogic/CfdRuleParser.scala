@@ -13,7 +13,7 @@ class CfdRuleParser() extends RegexParsers {
     case condAI ~ _ ~ consAI => cfdRule.setConditionalExpression(condAI, consAI)  }
   
   //tuple part of a CFD Rule
-  def valueIdentifier = """(("[a-zA-Z0-9-]+"|_),?)*("[a-zA-Z0-9-]+"|_)""".r 
+  def valueIdentifier = """(([a-zA-Z0-9-]+|_),?)*([a-zA-Z0-9-]+|_)""".r 
   def tupleIdentifier = """t[0-9]+""".r 
   def tuple: Parser[CfdRule] = 
     tupleIdentifier ~ """=\(""".r ~ valueIdentifier ~"""\|\|""".r ~ valueIdentifier ~ """\)""".r ^^ {
