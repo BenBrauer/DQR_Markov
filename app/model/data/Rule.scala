@@ -4,9 +4,27 @@ import anorm._
 import anorm.SqlParser._
 import play.api.db._
 import play.api.Play.current
+import model.markovLogic._
+import scala.util.parsing.combinator.RegexParsers
 
 case class Rule (id: Long, label: String, rule: String, dataset_id: Long) {
-  
+  def toMarkovLogic(): String = {
+    val mdRulePattern = """\A(md).*""".r
+    val cfdRulePattern = """\A(cfd).*""".r
+    var markovLogic = "";
+    this.rule match {
+      case mdRulePattern(m) => { 
+        val parser = new MdRuleParser(); 
+        parser.parse(this.rule) match { case (result, md) => markovLogic = md.toMarkovLogic } 
+      }
+      case cfdRulePattern(m) => {
+        val parser = new CfdRuleParser();
+        parser.parse(this.rule) match { case (result, cfd) => markovLogic = 
+          cfd.toMarkovLogic.foldLeft("")((ml,rule)=> ml + {if (ml.length > 0) "\n" else "" } + rule ) }
+      }
+    }
+    return markovLogic
+  }
 }
 
 object Rule {

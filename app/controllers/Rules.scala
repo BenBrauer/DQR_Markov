@@ -73,7 +73,14 @@ object Rules extends Controller {
       Ok(views.html.rules(Dataset.byId(dataset_id)))
     }
     
-   
+    def markovLogicRule(id: Long) = Action {
+      val rule = Rule.byId(id)
+      if (rule != null) {
+        Ok(rule.toMarkovLogic)
+      } else{
+        NotFound("Rule does not exist")
+      }
+    }
   
   
 }

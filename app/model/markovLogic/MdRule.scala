@@ -64,8 +64,8 @@ class MdRule {
     _consequentMatchRelationName2+ "[" + _consequentMatchAttributeList2.foldLeft("")(foldList) + "]" 
   }
   
-  override def toMarkovLogic(): String = {
-    
+  def toMarkovLogic(): String = {
+      return ""
   }
   
 }
