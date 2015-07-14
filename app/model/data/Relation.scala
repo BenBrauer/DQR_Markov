@@ -10,24 +10,32 @@ import util.CSV
  * @author BenB
  */
 case class Relation(id: Long, label: String, data: String, dataset_id: Long) {
+  
   def parseData() : List[Map[String,String]] = {
     val parser = new CSV()
     parser.parse(this.data)
   }
   
   def toMarkovLogic(): String =  {
-    val parser = new CSV()
-    val data = parser.parse(this.data)
+    val data = this.parseData()
     val (logic, index) = data.foldLeft(("",1))({
       case ((relationMarkovLogic,rowIndex),row) => {
         val rowMarkovLogic = row.foldLeft("")({
-          case (logic,(column, value)) => logic + "\n" + column + "(" + rowIndex.toString() + "," + value +")"
+          case (totalLogic,(column, value)) => totalLogic + "\n" + this.label + "-" + column + 
+            "(" + rowIndex.toString() + "," + value +")"
         })
-        (relationMarkovLogic + rowMarkovLogic, rowIndex + 1)
+        (relationMarkovLogic  + rowMarkovLogic, rowIndex + 1)
       }
     })
     return logic
   }
+  
+  def columns: List[String] = {
+    val data = this.parseData()
+    val columns = data(0).keySet
+    return columns.toList
+  }
+  
 }
 object Relation {
   

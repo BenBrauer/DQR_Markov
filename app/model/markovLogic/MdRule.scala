@@ -1,5 +1,13 @@
 package model.markovLogic
 
+
+sealed abstract class Expr
+case class Equals(lhs: String, op: String, rhs: String) extends Expr
+case class And(e1: Expr, e2: Expr) extends Expr
+case class Or(e1: Expr, e2: Expr) extends Expr
+  
+
+
 class MdRule {
   
   var _conditionalEqualRelationName1 = "" 
