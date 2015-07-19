@@ -1,6 +1,6 @@
 package model.markovLogic
 
-object QualityRuleCompiler {
+object RuleCompiler {
    
   //Tokens
   val ImplicationToken = "->"

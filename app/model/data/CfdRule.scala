@@ -1,8 +1,6 @@
-package model.markovLogic
+package model.data
 
-import model.data._
-
-class CfdRule() {
+class CfdRule(id: Long, label: String, rule: String, dataset_id: Long) extends Rule(id,label,rule,dataset_id) {
   
   var _relationName = ""
   var _conditionalAttributeIdentifier = new Array[String](0) 
@@ -61,7 +59,7 @@ class CfdRule() {
 
 object CfdRule {
 	
-  val parser = new CfdRuleParser()
+  /*val parser = new CfdRuleParser()
   
   def validate(rule: String, dataset: Dataset): (Boolean, String) = {
     val (parseSuccess, cfdRule) = parser.parse(rule)
@@ -87,5 +85,5 @@ object CfdRule {
     val valid = consColumnNumberMatch && condColumnNumberMatch
     if (!valid) return return (false, "Number of columns and values in rule do not match.")
     return (true, "Rule is valid.")
-  }
+  }*/
 }
