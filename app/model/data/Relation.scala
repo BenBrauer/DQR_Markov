@@ -7,7 +7,13 @@ import play.api.Play.current
 import util.CSV
 
 /**
- * @author BenB
+ * A relation which can be stored in the database.
+ * 
+ * @constructor create a new relation with an id, label, data and reference to a dataset-id
+ * @param id the relation's id in the database
+ * @param label the relation's label
+ * @param data the relation's data in csv-format
+ * @param dataset-id the relation's reference to a dataset-id value in the database
  */
 case class Relation(id: Long, label: String, data: String, dataset_id: Long) {
   

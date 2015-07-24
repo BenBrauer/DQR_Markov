@@ -1,8 +1,10 @@
-package model.markovLogic
+package model.data
 
 import scala.util.parsing.combinator._
-import model.data._
 
+/**
+ * A parser for conditional functional dependency data quality rules in first order logic form
+ */
 class CfdRuleParser() extends RegexParsers {
   
   var _cfdRule: CfdRule = null

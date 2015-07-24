@@ -1,8 +1,10 @@
-package model.markovLogic
+package model.data
 
 import scala.util.parsing.combinator._
-import model.data._
 
+/**
+ * A parser for matching dependency data quality rules in first order logic form
+ */
 class MdRuleParser() extends JavaTokenParsers {
   
   var _mdRule: MdRule = null

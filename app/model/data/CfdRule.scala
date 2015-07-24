@@ -49,9 +49,9 @@ class CfdRule(id: Long, label: String, rule: String, dataset_id: Long) extends R
     val cons = _consequentAttributeIdentifier zip _consequentValueIdentifier
     val cond = _conditionalAttributeIdentifier zip _conditionalValueIdentifier
     val condPart = cond.foldLeft("")((condTotal, condTuple) => condTotal + { if (condTotal.length > 0)  "^" else "" } 
-      + condTuple._1 + "(id1," + { if(condTuple._2 == "_") "value"  else condTuple._2 } + ")^"
-      + condTuple._1  + "(id2," + {if(condTuple._2 == "_") "value" else condTuple._2} + ")")
-   for ((consAttr,consVal) <- cons) yield condPart + "->" + {if (consVal == "_") "same" + consAttr + "(id1,id2)" 
+      + condTuple._1 + "-" + _relationName + "(id1," + { if(condTuple._2 == "_") "val" + condTuple._1 + "1"  else condTuple._2 } + ")^"
+      + condTuple._1 + "-" + _relationName + "(id2," + { if(condTuple._2 == "_") "val" + condTuple._1 + "2" else condTuple._2} + ")")
+   for ((consAttr,consVal) <- cons) yield condPart + "->" + {if (consVal == "_") "eq" + _relationName+ "-" + consAttr + "(id1,id2)" 
      else consAttr + "(id1," + consVal + ")^" + consAttr + "(id2," + consVal  }
   } 
   
