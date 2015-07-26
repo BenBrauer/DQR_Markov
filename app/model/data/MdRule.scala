@@ -1,5 +1,7 @@
 package model.data
 
+import org.mockito.internal.stubbing.ConsecutiveStubbing
+
 
 sealed abstract class Expr
 case class Equals(lhs: String, op: String, rhs: String) extends Expr
@@ -36,29 +38,28 @@ class MdRule(id: Long, label: String, rule: String, dataset_id: Long) extends Ru
   }
   
   private def exprToMarkovLogic(expr: Expr): String = {
-    var valCounter = 0
     expr match {
       case And(e1: Expr, e2:Expr) => exprToMarkovLogic(e1) + " ^ " + exprToMarkovLogic(e2)
       case Equals(lhs: String, op: String, rhs: String) => { 
-        val (equationMarkovLogic, newValCounter) = equationToMarkovLogic(lhs, op, rhs, valCounter) 
-        valCounter = newValCounter
-        equationMarkovLogic
+        return equationToMarkovLogic(lhs, op, rhs)
       }
     }
   }
   
-  private def equationToMarkovLogic(lhs: String, op: String, rhs: String, valCounter: Int): (String,Int) = {
+  private def equationToMarkovLogic(lhs: String, op: String, rhs: String): String = {
     //TODO: Operators = and !=
     val (lhRelationName, lhAttributeName) = splitUpRelationIdentifier(lhs)
-    val newValCounter1 = valCounter + 1 
-    val lhMarkovLogic = lhRelationName + "-" + lhAttributeName + "(id1,val"  + 
-      newValCounter1.toString() + ")"
     val (rhRelationName, rhAttributeName) = splitUpRelationIdentifier(rhs)
-    val newValCounter2 = valCounter + 1 
-    val rhMarkovLogic = rhRelationName + "-" + rhAttributeName + "(id2,val"  + 
-      newValCounter2.toString() + ")"
-    val additionalMarkovLogic = if (op == "~") " ^ similar(val" + newValCounter1 + ",val" + newValCounter2 + ")"
-    return (lhMarkovLogic + " ^ " + rhMarkovLogic + additionalMarkovLogic, newValCounter2)
+    val lhMarkovLogic =
+      if (op == "!=") lhRelationName + "-" + lhAttributeName + "(" + lhRelationName + "id,val" + lhAttributeName + "1) ^ !" +
+        lhRelationName + "-" + lhAttributeName + "(" + lhRelationName + "id,val" + lhAttributeName + "2)" 
+      else lhRelationName + "-" + lhAttributeName + "(" + lhRelationName + "id,val" + lhAttributeName + ")"
+    val rhMarkovLogic = 
+      if (op == "!=")  rhRelationName + "-" + rhAttributeName + "(" + rhRelationName + "id,val" + rhAttributeName + "2) ^ !" +
+        rhRelationName + "-" + rhAttributeName + "(" + rhRelationName + "id,val" + rhAttributeName + "1)"
+      else  rhRelationName + "-" + rhAttributeName + "(" + rhRelationName + "id,val" + rhAttributeName + ")"
+    //val additionalMarkovLogic = if (op == "~") " ^ similar(val" + newValCounter1 + ",val" + newValCounter2 + ")"
+    return lhMarkovLogic + " ^ " + rhMarkovLogic
   }
   
   override def toString(): String = {
@@ -75,8 +76,10 @@ class MdRule(id: Long, label: String, rule: String, dataset_id: Long) extends Ru
   def toMarkovLogic(): String = {
       return exprToMarkovLogic(_conditionalExpr) + " => " + 
       { 
-        if(_consequentMatchAttribute1 == _consequentMatchAttribute2) "match" + _consequentMatchAttribute1 + "(id1,id2)"
-        else "match" + _consequentMatchAttribute1 + _consequentMatchAttribute2 + "(id1,id2)"
+        if(_consequentMatchAttribute1 == _consequentMatchAttribute2) "match" + _consequentMatchAttribute1 + "(" +
+          _consequentMatchRelationName1 + "id," + _consequentMatchRelationName2 + "id)"
+        else "match" + _consequentMatchAttribute1 + _consequentMatchAttribute2 + "(" +
+          _consequentMatchRelationName1 + "id," + _consequentMatchRelationName2 + "id)"
       }
   }
   
