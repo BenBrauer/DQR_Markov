@@ -5,23 +5,17 @@ import model.data.Dataset
 object DatasetCompiler {
   def toMarkovLogic(set: Dataset): String = {
     //generate predicates for relation columns 
-    var variableCount = 0
     var columns: List[String] = List()
     val columnPredicates =  set.relations().foldLeft("")((totalLogic, rel) => 
       rel.columns.foldLeft("")((totalColumns, column) => 
-        totalColumns + { if (totalColumns.length > 0) "\n" + {
-          variableCount =  variableCount + 1
+        totalColumns + { if (totalColumns.length > 0) "\n"} + 
            column + "-" + rel.label  + "(" + rel.label + "id,val" + column + ")"
-        }
-      }
     ))
     //predicates for eq-Function
-    val samePredicates = set.relations().foldLeft("")((totalLogic, rel) => 
+    val eqPredicates = set.relations().foldLeft("")((totalLogic, rel) => 
       rel.columns.foldLeft("")((totalColumns, column) => 
-        totalColumns + { if (totalColumns.length > 0) "\n" + {
+        totalColumns + { if (totalColumns.length > 0) "\n" } + 
           "eq" + rel.label + "-" + column + "(" + rel.label + "id," + rel.label + "id)"
-        }
-      }
     ))
     //predicates for match-Function
     //generate list of all relation-column pairs
@@ -38,11 +32,12 @@ object DatasetCompiler {
            "match" + colName + "(" + colRel + "id" + "," + tailColRel + "id)"
          else
            ""
-       }) 
-       allColumnsTail = allColumnsTail.tail
+       })
+       if (allColumnsTail.length > 0)
+         allColumnsTail = allColumnsTail.tail
        colPredicates 
       })
    
-    return columnPredicates + "\n" + samePredicates + "\n" + matchPredicates
+    return columnPredicates + "\n" + eqPredicates + "\n" + matchPredicates
   }
 }

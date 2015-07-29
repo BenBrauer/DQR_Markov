@@ -83,6 +83,30 @@ object Rules extends Controller {
         NotFound("Rule does not exist")
       }
     }
-  
+    
+    def mlFile(id: Long) = Action {
+      val dataset = Dataset.byId(id)
+      if (dataset != null) {
+        val ml = DatasetCompiler.toMarkovLogic(dataset) + "\n\n" + 
+           dataset.rules.foldLeft("")(_ + "\n" + _.toMarkovLogic)
+        Ok(ml).as("application/x-download").withHeaders(
+          ("Content-disposition","attachment; filename=" + dataset.label + ".ml")
+        ) 
+      } else {
+        NotFound("Dataset does not exist")
+      }
+    }
+    
+    def dbFile(id: Long) = Action {
+      val dataset = Dataset.byId(id)
+      if (dataset != null) {
+        val db = dataset.relations().foldLeft("")(_ + "\n" + _.toMarkovLogic)
+        Ok(db).as("application/x-download").withHeaders(
+          ("Content-disposition","attachment; filename=" + dataset.label + ".db")
+        )
+      } else {
+        NotFound("Dataset does not exist")
+      }
+    }
   
 }

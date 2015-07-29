@@ -20,6 +20,8 @@ GET		/rules/delete/rule/id/:id	controllers.Rules.deleteRule(id: Long)
 POST	/rules/create/rule/dataset/id/:id	controllers.Rules.createRule(id: Long)
 POST	/rules/update/rule	controllers.Rules.updateRule
 
+GET		/markovLogic/db/dataset/id/:id controllers.Rules.dbFile(id: Long)
+GET		/markovLogic/mln/dataset/id/:id controllers.Rules.mlFile(id: Long)
 GET		/markovLogic/relation/id/:id controllers.Browser.markovLogicRelation(id: Long)
 GET		/markovLogic/rule/id/:id	controllers.Rules.markovLogicRule(id: Long)
 

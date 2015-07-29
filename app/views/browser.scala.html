@@ -24,9 +24,13 @@
 	               		</li>	
 	               	}
 	               	</ul>
-	            </li>
-	            <a href="/rules/dataset/id/@dataset.id">Show Rules</a>
-	            <a>Output Markov Logic</a>
+	            	<a href="/rules/dataset/id/@dataset.id">Show Rules</a>
+            		<br/>Output Markov Logic:
+            		<ul>
+		            	<li><a href="/markovLogic/mln/dataset/id/@dataset.id">ML-Network (@(dataset.label).ml)</a></li>
+		            	<li><a href="/markovLogic/db/dataset/id/@dataset.id">Evidence (@(dataset.label).db	)</a></li>
+	            	</ul>
+            	</li>
 	        }
 	    </ul>
     <p>
