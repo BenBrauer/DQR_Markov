@@ -1,6 +1,5 @@
 package model.data
 
-import org.mockito.internal.stubbing.ConsecutiveStubbing
 
 
 sealed abstract class Expr
@@ -73,7 +72,7 @@ class MdRule(id: Long, label: String, rule: String, dataset_id: Long) extends Ru
     ""
   }
   
-  def toMarkovLogic(): String = {
+  override def toMarkovLogic(): String = {
       return exprToMarkovLogic(_conditionalExpr) + " => " + 
       { 
         if(_consequentMatchAttribute1 == _consequentMatchAttribute2) "match" + _consequentMatchAttribute1 + "(" +

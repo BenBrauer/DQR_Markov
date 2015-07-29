@@ -11,18 +11,20 @@ import play.api.data.validation._
 
 object Rules extends Controller {
   
-  case class RuleData(id: Long, label: String, rule: String, dataset_id: Long)
+  case class RuleData(id: Long, label: String, rule: String, dataset_id: Long) {
     //TODO: validate to all rule types 
-    val ruleValidationConstraint = Constraint[String] {(r: String) => r match {
+    /*val ruleValidationConstraint = Constraint[String] {(r: String) => r match {
       case r if CfdRule.validate(r)._1 => Valid
       case _ => Invalid("Rule could not be parsed.")
-    }}
+    }*/
+     }
+    
   
     val ruleForm = Form(
       mapping(
         "id" -> longNumber,
         "label" -> text(minLength = 0, maxLength = 255),
-        "rule" -> text(minLength = 0, maxLength = 500).verifying(ruleValidationConstraint),
+        "rule" -> text(minLength = 0, maxLength = 500),//.verifying(ruleValidationConstraint),
         "dataset_id" -> longNumber
           )(RuleData.apply)(RuleData.unapply)
       )

@@ -45,12 +45,10 @@ object Rule {
     var ruleInstance: Rule = null
     rule match {
       case mdRulePattern(m) => { 
-        ruleInstance = new MdRule(id, label, rule, dataset_id)
         val parser = new MdRuleParser(); 
-        parser.parse(rule) match { case (result, md) => ruleInstance = md } 
+        parser.parse(new MdRule(id, label, rule, dataset_id)) match { case (result, md) => ruleInstance = md } 
       }
       case cfdRulePattern(m) => {
-        ruleInstance = new CfdRule(id, label, rule, dataset_id)        
         val parser = new CfdRuleParser();
         parser.parse(new CfdRule(id, label, rule, dataset_id)) match { case (result, cfd) =>  
           ruleInstance = cfd

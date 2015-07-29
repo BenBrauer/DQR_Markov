@@ -11,7 +11,7 @@ class MdRuleParser() extends JavaTokenParsers {
   
 	def relationIdentifier = """[a-zA-Z0-9-_]+\[[a-zA-Z0-9-_]+\]""".r
   //TODO:!=
-  def equationIdentifier = """[=~]""".r
+  def equationIdentifier = """(=|!=)""".r
   
   def combination: Parser[Expr] = chainl1(equation, "^" ^^^ And)
   def equationRegex = relationIdentifier ~ equationIdentifier ~ relationIdentifier 
@@ -26,7 +26,6 @@ class MdRuleParser() extends JavaTokenParsers {
           condRelationNotEqual1, condRelationEqual2, consRelation1, consRelation2)}*/
   def rule = """md[0-9]*:\s*""".r ~ combination  ~ """-\>""".r ~ 
     relationIdentifier ~ """<->""".r ~ relationIdentifier ^^ {
-    //TODO: setRule
     case _ ~ ast ~ _ ~ lhs ~ _ ~ rhs => _mdRule.setRule(ast, lhs, rhs)
   }
   

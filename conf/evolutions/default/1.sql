@@ -36,9 +36,9 @@ CREATE TABLE rule (
 	FOREIGN KEY (dataset_id) REFERENCES dataset(id)
 );
 
-INSERT INTO rule (label, rule, dataset_id) VALUES ('rule1_r1', 'cfd: HOSP([ZIP]->[STATE,CITY],t1=(_ || _,_))',1);
+INSERT INTO rule (label, rule, dataset_id) VALUES ('rule1_r1', 'md1: HOSP[ZIP] = ZIPCODE[ZIP] ^ HOSP[STATE] != ZIPCODE[STATE] -> HOSP[STATE] <-> ZIPCODE[STATE]	',1);
 INSERT INTO rule (label, rule, dataset_id) VALUES ('rule2_r1', 'cfd: HOSP([ZIP]->[STATE,CITY],t1=(_ || _,_))',1);
-INSERT INTO rule (label, rule, dataset_id) VALUES ('rule1_r2', 'cfd: HOSP([ZIP]->[STATE,CITY],t1=(_ || _,_))',2);
+INSERT INTO rule (label, rule, dataset_id) VALUES ('rule1_r2', 'md1: HOSP[ZIP] = ZIPCODE[ZIP] ^ HOSP[STATE] = ZIPCODE[STATE] -> HOSP[STATE] <-> ZIPCODE[STATE]',2);
 INSERT INTO rule (label, rule, dataset_id) VALUES ('rule2_r2', 'cfd: HOSP([ZIP]->[STATE,CITY],t1=(_ || _,_))',2);
 
 # --- !Downs
