@@ -3,7 +3,7 @@ package model.markovLogic
 import model.data.Dataset
 
 object DatasetCompiler {
-  def toMarkovLogic(set: Dataset): String = {
+  def apply(set: Dataset): String = {
     //generate predicates for relation columns 
     var columns: List[String] = List()
     val columnPredicates =  set.relations().foldLeft("")((totalLogic, rel) => 

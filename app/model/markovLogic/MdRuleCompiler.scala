@@ -1,5 +1,7 @@
 package model.markovLogic
 
+import model.data.MdRule
+
 object MdRuleCompiler {
    
   //Tokens
@@ -18,7 +20,7 @@ object MdRuleCompiler {
     return ""
    }
   
-  def validate(rule: String): Boolean = {
+  def validate(rule: MdRule): Boolean = {
     return true
   }
   

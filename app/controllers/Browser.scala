@@ -5,6 +5,7 @@ import play.api.mvc._
 import model.data._
 import play.api.data._
 import play.api.data.Forms._
+import model.markovLogic.RelationCompiler
 
 object Browser extends Controller {
  
@@ -61,7 +62,7 @@ object Browser extends Controller {
   
   def markovLogicRelation(id: Long) = Action {
     val relation = Relation.byId(id)
-    Ok(relation.toMarkovLogic)
+    Ok(RelationCompiler(relation))
   }
   
 } 

@@ -78,7 +78,7 @@ object Rules extends Controller {
     def markovLogicRule(id: Long) = Action {
       val rule = Rule.byId(id)
       if (rule != null) {
-        Ok(rule.toMarkovLogic)
+        Ok(RuleCompiler(rule))
       } else{
         NotFound("Rule does not exist")
       }
@@ -87,8 +87,8 @@ object Rules extends Controller {
     def mlFile(id: Long) = Action {
       val dataset = Dataset.byId(id)
       if (dataset != null) {
-        val ml = DatasetCompiler.toMarkovLogic(dataset) + "\n\n" + 
-           dataset.rules.foldLeft("")(_ + "\n" + _.toMarkovLogic)
+        val ml = DatasetCompiler(dataset) + "\n\n" + 
+           dataset.rules.foldLeft("")(_ + "\n" + RuleCompiler(_))
         Ok(ml).as("application/x-download").withHeaders(
           ("Content-disposition","attachment; filename=" + dataset.label + ".ml")
         ) 
@@ -100,7 +100,7 @@ object Rules extends Controller {
     def dbFile(id: Long) = Action {
       val dataset = Dataset.byId(id)
       if (dataset != null) {
-        val db = dataset.relations().foldLeft("")(_ + "\n" + _.toMarkovLogic)
+        val db = dataset.relations().foldLeft("")(_ + "\n" + RelationCompiler(_))
         Ok(db).as("application/x-download").withHeaders(
           ("Content-disposition","attachment; filename=" + dataset.label + ".db")
         )

@@ -2,12 +2,12 @@ package model.data
 
 class CfdRule(id: Long, label: String, rule: String, dataset_id: Long) extends Rule(id,label,rule,dataset_id) {
   
-  var _relationName = ""
-  var _conditionalAttributeIdentifier = new Array[String](0) 
-  var _conditionalValueIdentifier= new Array[String](0) 
-  var _tupleName = ""
-  var _consequentAttributeIdentifier = new Array[String](0)  
-  var _consequentValueIdentifier = new Array[String](0) 
+  private var _relationName = ""
+  private var _conditionalAttributeIdentifier = new Array[String](0) 
+  private var _conditionalValueIdentifier= new Array[String](0) 
+  private var _tupleName = ""
+  private var _consequentAttributeIdentifier = new Array[String](0)  
+  private var _consequentValueIdentifier = new Array[String](0) 
   
   def relationName = _relationName
   
@@ -45,16 +45,7 @@ class CfdRule(id: Long, label: String, rule: String, dataset_id: Long) extends R
      _consequentValueIdentifier.foldLeft("")(combineCommaSep) + ")" 
   }
   
-  override def toMarkovLogic: String = {
-    val cons = _consequentAttributeIdentifier zip _consequentValueIdentifier
-    val cond = _conditionalAttributeIdentifier zip _conditionalValueIdentifier
-    val condPart = cond.foldLeft("")((condTotal, condTuple) => condTotal + { if (condTotal.length > 0)  "^" else "" } 
-      + condTuple._1 + "-" + _relationName + "(id1," + { if(condTuple._2 == "_") "val" + condTuple._1 + "1"  else condTuple._2 } + ")^"
-      + condTuple._1 + "-" + _relationName + "(id2," + { if(condTuple._2 == "_") "val" + condTuple._1 + "2" else condTuple._2} + ")")
-    val mlRules = for ((consAttr,consVal) <- cons) yield condPart + "->" + {if (consVal == "_") "eq" + _relationName+ "-" + consAttr + "(id1,id2)" 
-     else consAttr + "(id1," + consVal + ")^" + consAttr + "(id2," + consVal  }
-    return mlRules.foldLeft("")(_+ "\n" +_)
-  } 
+  
   
 }
 

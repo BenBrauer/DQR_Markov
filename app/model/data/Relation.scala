@@ -22,19 +22,6 @@ case class Relation(id: Long, label: String, data: String, dataset_id: Long) {
     parser.parse(this.data)
   }
   
-  def toMarkovLogic(): String =  {
-    val data = this.parseData()
-    val (logic, index) = data.foldLeft(("",1))({
-      case ((relationMarkovLogic,rowIndex),row) => {
-        val rowMarkovLogic = row.foldLeft("")({
-          case (totalLogic,(column, value)) => totalLogic + "\n" + this.label + "-" + column + 
-            "(" + rowIndex.toString() + "," + value +")"
-        })
-        (relationMarkovLogic  + rowMarkovLogic, rowIndex + 1)
-      }
-    })
-    return logic
-  }
   
   def columns: List[String] = {
     val data = this.parseData()
