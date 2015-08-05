@@ -5,15 +5,14 @@ import model.data.Dataset
 object DatasetCompiler {
   def apply(set: Dataset): String = {
     //generate predicates for relation columns 
-    var columns: List[String] = List()
-    val columnPredicates =  set.relations().foldLeft("")((totalLogic, rel) => 
-      rel.columns.foldLeft("")((totalColumns, column) => 
+    val columnPredicates =  set.relations.foldLeft("")((totalLogic, rel) => 
+      totalLogic  + { if (totalLogic.length > 0) "\n"} +  rel.columns.foldLeft("")((totalColumns, column) => 
         totalColumns + { if (totalColumns.length > 0) "\n"} + 
-           column + "-" + rel.label  + "(" + rel.label + "id,val" + column + ")"
+           rel.label + "-" + column + "(" + rel.label + "id,val" + column + ")"
     ))
     //predicates for eq-Function
-    val eqPredicates = set.relations().foldLeft("")((totalLogic, rel) => 
-      rel.columns.foldLeft("")((totalColumns, column) => 
+    val eqPredicates = set.relations.foldLeft("")((totalLogic, rel) => 
+      totalLogic  + { if (totalLogic.length > 0) "\n"} + rel.columns.foldLeft("")((totalColumns, column) => 
         totalColumns + { if (totalColumns.length > 0) "\n" } + 
           "eq" + rel.label + "-" + column + "(" + rel.label + "id," + rel.label + "id)"
     ))

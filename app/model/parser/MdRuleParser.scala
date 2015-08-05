@@ -1,4 +1,4 @@
-package model.data
+package model.parser
 
 import scala.util.parsing.combinator._
 
@@ -32,7 +32,7 @@ class MdRuleParser() extends JavaTokenParsers {
   
    def parse(mdRule: MdRule): (Boolean, MdRule) ={ 
     _mdRule = mdRule
-    parseAll(rule, _mdRule.rule) match {
+    parseAll(rule, _mdRule.ruleText) match {
       case Success(result, _) => (true,result)
       case failure : NoSuccess => (false, null)
     }

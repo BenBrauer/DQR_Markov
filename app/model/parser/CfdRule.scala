@@ -1,6 +1,9 @@
-package model.data
+package model.parser
 
-class CfdRule(id: Long, label: String, rule: String, dataset_id: Long) extends Rule(id,label,rule,dataset_id) {
+/*
+ * A Conditional functional dependency Data Quality rule. 
+ */
+class CfdRule(ruleText: String) extends ParsedRule(ruleText) {
   
   private var _relationName = ""
   private var _conditionalAttributeIdentifier = new Array[String](0) 
@@ -10,18 +13,14 @@ class CfdRule(id: Long, label: String, rule: String, dataset_id: Long) extends R
   private var _consequentValueIdentifier = new Array[String](0) 
   
   def relationName = _relationName
-  
   def relationName_= (value:String):CfdRule = {
     _relationName = value
     return this
   } 
   
   def conditionalAttributeIdentifier = _conditionalAttributeIdentifier
-  
   def conditionalValueIdentifier = _conditionalValueIdentifier
-  
   def consequentAttributeIdentifier = _consequentAttributeIdentifier
-  
   def consequentValueIdentifier = _consequentValueIdentifier
   
   def setConditionalExpression(conditionalAttributeIdentifier: String, consequentAttributeIdentifier: String): CfdRule = {
@@ -49,33 +48,4 @@ class CfdRule(id: Long, label: String, rule: String, dataset_id: Long) extends R
   
 }
 
-object CfdRule {
-	
-  /*val parser = new CfdRuleParser()
-  
-  def validate(rule: String, dataset: Dataset): (Boolean, String) = {
-    val (parseSuccess, cfdRule) = parser.parse(rule)
-    if (!parseSuccess) return (false, "Incorrect syntax: rule cannot be parsed.")
-    val relation = dataset.relations().find { r => r.label == cfdRule.relationName }
-    val relationExists = relation.isDefined
-    val condColumnNumberMatch = 
-      cfdRule.conditionalAttributeIdentifier.length == cfdRule.conditionalValueIdentifier.length
-    val consColumnNumberMatch = 
-      cfdRule.consequentAttributeIdentifier.length == cfdRule.consequentValueIdentifier.length
-    val valid = consColumnNumberMatch && condColumnNumberMatch
-    if (!valid) return return (false, "Number of columns and values in rule do not match.")
-    return (true, "Rule is valid.")
-  }
-  
-  def validate(rule: String): (Boolean, String) = {
-    val (parseSuccess, cfdRule) = parser.parse(rule)
-    if (!parseSuccess) return (false, "Incorrect syntax: rule cannot be parsed.")
-    val condColumnNumberMatch = 
-      cfdRule.conditionalAttributeIdentifier.length == cfdRule.conditionalValueIdentifier.length
-    val consColumnNumberMatch = 
-      cfdRule.consequentAttributeIdentifier.length == cfdRule.consequentValueIdentifier.length
-    val valid = consColumnNumberMatch && condColumnNumberMatch
-    if (!valid) return return (false, "Number of columns and values in rule do not match.")
-    return (true, "Rule is valid.")
-  }*/
-}
+

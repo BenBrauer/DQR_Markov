@@ -1,4 +1,4 @@
-package model.data
+package model.parser
 
 import scala.util.parsing.combinator._
 
@@ -30,7 +30,7 @@ class CfdRuleParser() extends RegexParsers {
   
   def parse(cfdRule: CfdRule): (Boolean, CfdRule) ={ 
     _cfdRule = cfdRule
-    parseAll(rule, _cfdRule.rule) match {
+    parseAll(rule, _cfdRule.ruleText) match {
       case Success(result, _) => (true,result)
       case failure : NoSuccess => (false, null)
     }

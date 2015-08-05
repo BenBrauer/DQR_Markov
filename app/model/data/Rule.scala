@@ -4,10 +4,9 @@ import anorm._
 import anorm.SqlParser._
 import play.api.db._
 import play.api.Play.current
-import model.markovLogic._
 import scala.util.parsing.combinator.RegexParsers
 
-abstract case class Rule (id: Long, label: String, rule: String, dataset_id: Long) {
+case class Rule (id: Long, label: String, rule: String, dataset_id: Long) {
  
 }
 
@@ -18,28 +17,10 @@ object Rule {
     get[String]("label") ~
     get[String]("rule") ~
     get[Long]("dataset_id")map {
-      case id~label~rule~dataset_id => Rule.createNewInstance(id,label,rule,dataset_id)
+      case id~label~rule~dataset_id => Rule(id,label,rule,dataset_id)
       }
   }
   
-  def createNewInstance(id: Long, label: String, rule: String, dataset_id: Long): Rule = {
-    val mdRulePattern = """\A(md).*""".r
-    val cfdRulePattern = """\A(cfd).*""".r
-    var ruleInstance: Rule = null
-    rule match {
-      case mdRulePattern(m) => { 
-        val parser = new MdRuleParser(); 
-        parser.parse(new MdRule(id, label, rule, dataset_id)) match { case (result, md) => ruleInstance = md } 
-      }
-      case cfdRulePattern(m) => {
-        val parser = new CfdRuleParser();
-        parser.parse(new CfdRule(id, label, rule, dataset_id)) match { case (result, cfd) =>  
-          ruleInstance = cfd
-        }
-      }
-    }
-    return ruleInstance
-  }
   
   def create(label: String, rule: String, dataset_id: Long) = {
       DB.withConnection { implicit c => 

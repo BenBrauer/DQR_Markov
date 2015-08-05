@@ -4,6 +4,7 @@ import play.api._
 import play.api.mvc._
 import model.data._
 import model.markovLogic._
+import model.parser._
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation._
@@ -88,7 +89,7 @@ object Rules extends Controller {
       val dataset = Dataset.byId(id)
       if (dataset != null) {
         val ml = DatasetCompiler(dataset) + "\n\n" + 
-           dataset.rules.foldLeft("")(_ + "\n" + RuleCompiler(_))
+           dataset.rules.foldLeft("")(_ + "\n" +  RuleCompiler(_))
         Ok(ml).as("application/x-download").withHeaders(
           ("Content-disposition","attachment; filename=" + dataset.label + ".ml")
         ) 
