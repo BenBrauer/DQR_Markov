@@ -2,20 +2,17 @@ package controllers
 
 import play.api._
 import play.api.mvc._
-import model.data._
 import play.api.data._
 import play.api.data.Forms._
+import model.data._
 import model.markovLogic.RelationCompiler
 
+/**
+ * Browser is a controller for operations on Datasets like create, delete, show and on Relations like create, delete, show
+ */
 object Browser extends Controller {
  
-  
-  def relation(id: Long) = Action {
-    Ok(views.html.relation(Relation.byId(id)))
-  }
-  
-  case class DatasetData(label: String)
-  
+  case class DatasetData(label: String)  
   val datasetForm = Form(
     mapping(
         "label" -> text
@@ -33,7 +30,6 @@ object Browser extends Controller {
     Redirect("/browser")
   }
  
-  
   case class RelationData(label: String, data: String, dataset_id: Long)
   val relationForm = Form(
       mapping(
@@ -43,9 +39,8 @@ object Browser extends Controller {
           )(RelationData.apply)(RelationData.unapply)
           
     )
-    
      
-  def newRelation(dataset_id: Long) = Action {
+  def inputRelation(dataset_id: Long) = Action {
 	  Ok(views.html.relationForm(relationForm,dataset_id))
   }
     
@@ -55,6 +50,10 @@ object Browser extends Controller {
     Redirect("/browser")
   }
   
+  def showRelation(id: Long) = Action {
+    Ok(views.html.relation(Relation.byId(id)))
+  }
+   
   def deleteRelation(id: Long) = Action {
     Relation.delete(id)
     Redirect("/browser")

@@ -6,15 +6,15 @@
 GET     /                           controllers.Application.index
 
 GET     /browser					controllers.Application.browser
-GET 	/browser/relation/id/:id    controllers.Browser.relation(id: Long)
+GET 	/browser/relation/id/:id    controllers.Browser.showRelation(id: Long)
 GET		/browser/create/dataset		controllers.Browser.createDataset
 GET		/browser/delete/dataset/id/:id	controllers.Browser.deleteDataset(id: Long)
 GET		/browser/create/relation	controllers.Browser.createRelation
-GET		/browser/new/relation/dataset/id/:id		controllers.Browser.newRelation(id: Long)
+GET		/browser/new/relation/dataset/id/:id		controllers.Browser.inputRelation(id: Long)
 GET		/browser/delete/relation/id/:id		controllers.Browser.deleteRelation(id: Long)
 
 GET 	/rules/dataset/id/:id	controllers.Rules.rules(id: Long)
-GET		/rules/new/rule/dataset/id/:id controllers.Rules.newRule(id: Long)
+GET		/rules/new/rule/dataset/id/:id controllers.Rules.inputRule(id: Long)
 GET		/rules/edit/rule/id/:id		controllers.Rules.editRule(id: Long)
 GET		/rules/delete/rule/id/:id	controllers.Rules.deleteRule(id: Long)
 POST	/rules/create/rule/dataset/id/:id	controllers.Rules.createRule(id: Long)

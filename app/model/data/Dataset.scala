@@ -5,7 +5,13 @@ import anorm.SqlParser._
 import play.api.db._
 import play.api.Play.current
 
-
+/**
+ * A dataset which can be stored in the database
+ * 
+ * @constructur create new instance of dataset with an id and label
+ * @param id the dataset's id in the database
+ * @param label the dataset's label
+ */
 case class Dataset (id: Long, label: String) {
   
   def relations(): List[Relation] = DB.withConnection { implicit c =>
@@ -49,10 +55,6 @@ object Dataset {
       .on("id" -> id)
       .execute()}
   }
-  
-  def byLabel(label: String): Dataset = 
-    DB.withConnection { implicit c => SQL("SELECT * FROM dataset WHERE label = {label}").on("label" -> label).as(dataset single)}
-  
   
   def byId(id: Long): Dataset = 
     DB.withConnection { implicit c => SQL("SELECT * FROM dataset WHERE id = {id}").on("id" -> id).as(dataset single)}

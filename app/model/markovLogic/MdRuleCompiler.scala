@@ -6,18 +6,7 @@ import model.parser.Equals
 import model.parser.And
 
 object MdRuleCompiler {
-   
-  //Tokens
-  val ImplicationToken = "->"
-  val EqualToken = "="
-  val SimilarityToken = "~"
-  val ConjunctionToken = "^"
-  val DisjunctionToken = "v"
-  val MatchToken = "<=>"
-  
-  //Regular expression for validation
-  val RuleRegEx = ""
-  
+ 
   def apply(rule: MdRule): String = {
      return exprToMarkovLogic(rule.conditionalExpr) + " => " + 
       { 
@@ -38,8 +27,8 @@ object MdRuleCompiler {
   private def exprToMarkovLogic(expr: Expr): String = {
     expr match {
       case And(e1: Expr, e2:Expr) => exprToMarkovLogic(e1) + " ^ " + exprToMarkovLogic(e2)
-      case Equals(lhs: String, op: String, rhs: String) => { 
-        return equationToMarkovLogic(lhs, op, rhs)
+      case Equals(lhs: String, operator: String, rhs: String) => { 
+        return equationToMarkovLogic(lhs, operator, rhs)
       }
     }
   }
@@ -56,7 +45,6 @@ object MdRuleCompiler {
       if (op == "!=")  rhRelationName + "-" + rhAttributeName + "(" + rhRelationName + "id,val" + rhAttributeName + "2) ^ !" +
         rhRelationName + "-" + rhAttributeName + "(" + rhRelationName + "id,val" + rhAttributeName + "1)"
       else  rhRelationName + "-" + rhAttributeName + "(" + rhRelationName + "id,val" + rhAttributeName + ")"
-    //val additionalMarkovLogic = if (op == "~") " ^ similar(val" + newValCounter1 + ",val" + newValCounter2 + ")"
     return lhMarkovLogic + " ^ " + rhMarkovLogic
   }
   

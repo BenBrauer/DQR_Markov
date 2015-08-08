@@ -9,7 +9,9 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation._
 
-
+/**
+ * Rules is a Controller for operations on rules like create, read, updadte, delete and generation of markov logic
+ */
 object Rules extends Controller {
   
   case class RuleData(id: Long, label: String, rule: String, dataset_id: Long) {
@@ -31,7 +33,7 @@ object Rules extends Controller {
       )
     
 
-    def newRule(dataset_id: Long) = Action {
+    def inputRule(dataset_id: Long) = Action {
       val newRuleForm =ruleForm.fill(new RuleData(0, "","",dataset_id))
       val saveAction:Call = routes.Rules.createRule(dataset_id)
       Ok(views.html.ruleForm(newRuleForm,"Create new rule", saveAction, dataset_id))
