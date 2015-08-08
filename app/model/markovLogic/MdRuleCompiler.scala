@@ -17,7 +17,7 @@ object MdRuleCompiler {
       }
    }
   
-   private def splitUpRelationIdentifier(relationIdentifier: String): (String, String) =  {
+  private def splitUpRelationIdentifier(relationIdentifier: String): (String, String) =  {
     val relationParts = relationIdentifier.split("\\[")
     val relationName = relationParts(0)
     val attributeName = relationParts(1).replaceAll("\\]", "")

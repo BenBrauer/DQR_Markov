@@ -3,10 +3,7 @@ package model.markovLogic
 import model.parser.CfdRule
 
 object CfdRuleCompiler {
-  
-  //Regular expression for validation
-  val RuleRegEx = ""
-  
+ 
   def apply(rule: CfdRule): String = {
     val cons =  rule.consequentAttributeIdentifier zip rule.consequentValueIdentifier
     val cond = rule.conditionalAttributeIdentifier zip rule.conditionalValueIdentifier
@@ -17,9 +14,5 @@ object CfdRuleCompiler {
      else consAttr + "(id1," + consVal + ")^" + consAttr + "(id2," + consVal  }
     return mlRules.foldLeft("")(_+ "\n" +_) 
    }
-  
-  def validate(rule: String): Boolean = {
-    return true
-  }
   
 }
