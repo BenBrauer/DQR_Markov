@@ -5,8 +5,8 @@ import model.parser.CfdRule
 object CfdRuleCompiler {
  
   def apply(rule: CfdRule): String = {
-    val cons =  rule.consequentAttributeIdentifier zip rule.consequentValueIdentifier
-    val cond = rule.conditionalAttributeIdentifier zip rule.conditionalValueIdentifier
+    val cons =  rule.consequentAttributeList zip rule.consequentValueList
+    val cond = rule.conditionalAttributeList zip rule.conditionalValueList
     val condPart = cond.foldLeft("")((condTotal, condTuple) => condTotal + { if (condTotal.length > 0)  "^" else "" } 
       + condTuple._1 + "-" + rule.relationName + "(id1," + { if(condTuple._2 == "_") "val" + condTuple._1 + "1"  else condTuple._2 } + ")^"
       + condTuple._1 + "-" + rule.relationName + "(id2," + { if(condTuple._2 == "_") "val" + condTuple._1 + "2" else condTuple._2} + ")")

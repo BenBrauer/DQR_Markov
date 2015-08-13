@@ -1,7 +1,6 @@
 package model.markovLogic
 
 import model.data.Dataset
-import play.api.Logger
 import util.{Commons => c}
 
 /**
@@ -15,7 +14,6 @@ object DatasetCompiler {
         totalColumns + c.addNewLine(totalColumns) + 
            rel.label + "-" + column + "(" + rel.label + "id,val" + column + ")"
     ))
-    Logger.debug("\ncolumnPredicates: " + columnPredicates)
     //predicates for eq-Function
     val eqPredicates = set.relations.foldLeft("")((totalLogic, rel) => 
       totalLogic  + c.addNewLine(totalLogic) + rel.columns.foldLeft("")((totalColumns, column) => 

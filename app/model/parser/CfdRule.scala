@@ -6,32 +6,32 @@ package model.parser
 class CfdRule(ruleText: String) extends ParsedRule(ruleText) {
   
   var relationName = ""
-  var conditionalAttributeIdentifier = new Array[String](0) 
-  var conditionalValueIdentifier= new Array[String](0) 
+  var conditionalAttributeList = new Array[String](0) 
+  var conditionalValueList= new Array[String](0) 
   var tupleName = ""
-  var consequentAttributeIdentifier = new Array[String](0)  
-  var consequentValueIdentifier = new Array[String](0) 
+  var consequentAttributeList = new Array[String](0)  
+  var consequentValueList = new Array[String](0) 
   
   
-  def setConditionalExpression(conditionalAttributeIdentifier: String, consequentAttributeIdentifier: String): CfdRule = {
-    this.conditionalAttributeIdentifier =  conditionalAttributeIdentifier.replace("[", "").replace("]", "").split(",")
-    this.consequentAttributeIdentifier = consequentAttributeIdentifier.replace("[", "").replace("]", "").split(",")
+  def setFunctionalExpression(conditionalAttributeIdentifier: String, consequentAttributeIdentifier: String): CfdRule = {
+    this.conditionalAttributeList =  conditionalAttributeIdentifier.replace("[", "").replace("]", "").split(",")
+    this.consequentAttributeList = consequentAttributeIdentifier.replace("[", "").replace("]", "").split(",")
     return this
   }
   
   def setTuple(tupleName: String, conditionalValueIdentifier: String, consequentValueIdentifier: String): CfdRule = {
     this.tupleName = tupleName
-    this.conditionalValueIdentifier = conditionalValueIdentifier.replace("[", "").replace("]", "").split(",")
-    this.consequentValueIdentifier = consequentValueIdentifier.replace("[", "").replace("]", "").split(",")
+    this.conditionalValueList = conditionalValueIdentifier.replace("[", "").replace("]", "").split(",")
+    this.consequentValueList = consequentValueIdentifier.replace("[", "").replace("]", "").split(",")
     return this
   }    
   
   override def toString = {
     val combineCommaSep = (total: String, value: String) => total + {if (total.length > 0) "," else ""} + value
-    "cfd: " +relationName + "([" + conditionalAttributeIdentifier.foldLeft("")(combineCommaSep) + "]->[" + 
-    consequentAttributeIdentifier.foldLeft("")(combineCommaSep) + "]," +
-     tupleName + "=(" + conditionalValueIdentifier.foldLeft("")(combineCommaSep) + "||" + 
-     consequentValueIdentifier.foldLeft("")(combineCommaSep) + ")" 
+    "cfd: " +relationName + "([" + conditionalAttributeList.foldLeft("")(combineCommaSep) + "]->[" + 
+    consequentAttributeList.foldLeft("")(combineCommaSep) + "]," +
+     tupleName + "=(" + conditionalValueList.foldLeft("")(combineCommaSep) + "||" + 
+     consequentValueList.foldLeft("")(combineCommaSep) + ")" 
   }
   
   

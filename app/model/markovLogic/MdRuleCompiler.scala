@@ -5,6 +5,9 @@ import model.parser.Expr
 import model.parser.Equals
 import model.parser.And
 
+/**
+ * MdRuleCompiler is a compiler to compile a matching dependency rule from first order logic to markov logic
+ */
 object MdRuleCompiler {
  
   def apply(rule: MdRule): String = {
@@ -34,7 +37,6 @@ object MdRuleCompiler {
   }
   
   private def equationToMarkovLogic(lhs: String, op: String, rhs: String): String = {
-    //TODO: Operators = and !=
     val (lhRelationName, lhAttributeName) = splitUpRelationIdentifier(lhs)
     val (rhRelationName, rhAttributeName) = splitUpRelationIdentifier(rhs)
     val lhMarkovLogic =
