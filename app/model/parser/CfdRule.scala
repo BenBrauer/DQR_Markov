@@ -1,7 +1,7 @@
 package model.parser
 
 /*
- * A Conditional functional dependency Data Quality rule. 
+ * Is a Conditional functional dependency Data Quality rule. 
  */
 class CfdRule(ruleText: String) extends ParsedRule(ruleText) {
   
@@ -12,7 +12,9 @@ class CfdRule(ruleText: String) extends ParsedRule(ruleText) {
   var consequentAttributeList = new Array[String](0)  
   var consequentValueList = new Array[String](0) 
   
-  
+  /*
+   * 
+   */
   def setFunctionalExpression(conditionalAttributeIdentifier: String, consequentAttributeIdentifier: String): CfdRule = {
     this.conditionalAttributeList =  conditionalAttributeIdentifier.replace("[", "").replace("]", "").split(",")
     this.consequentAttributeList = consequentAttributeIdentifier.replace("[", "").replace("]", "").split(",")

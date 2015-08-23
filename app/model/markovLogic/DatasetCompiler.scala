@@ -4,9 +4,13 @@ import model.data.Dataset
 import util.{Commons => c}
 
 /**
- * DatasetCompiler is a compiler to generate hidden markov logic predicates for a dataset
+ * Is a compiler to generate observed and hidden markov logic predicates for a dataset
  */
 object DatasetCompiler {
+  
+  /**
+   * Compiles a dataset to observed and hidden markov logic predicates
+   */
   def apply(set: Dataset): String = {
     //generate predicates for relation columns 
     val columnPredicates =  set.relations.foldLeft("")((totalLogic, rel) => 

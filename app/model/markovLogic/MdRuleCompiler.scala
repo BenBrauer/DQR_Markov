@@ -6,10 +6,13 @@ import model.parser.Equals
 import model.parser.And
 
 /**
- * MdRuleCompiler is a compiler to compile a matching dependency rule from first order logic to markov logic
+ * Is a compiler to create markov logic for a MdRule 
  */
 object MdRuleCompiler {
- 
+   
+  /**
+   * Compiles MdRule to markov logic
+   */
   def apply(rule: MdRule): String = {
      return exprToMarkovLogic(rule.conditionalExpr) + " => " + 
       { 
@@ -20,6 +23,9 @@ object MdRuleCompiler {
       }
    }
   
+  /**
+   * Splits a relation identifier into a tuple of relation name and attribute name
+   */
   private def splitUpRelationIdentifier(relationIdentifier: String): (String, String) =  {
     val relationParts = relationIdentifier.split("\\[")
     val relationName = relationParts(0)
@@ -27,6 +33,9 @@ object MdRuleCompiler {
     (relationName, attributeName)
   }
   
+  /**
+   * Generates markov logic für an Expr instance
+   */
   private def exprToMarkovLogic(expr: Expr): String = {
     expr match {
       case And(e1: Expr, e2:Expr) => exprToMarkovLogic(e1) + " ^ " + exprToMarkovLogic(e2)
@@ -36,6 +45,9 @@ object MdRuleCompiler {
     }
   }
   
+  /**
+   * Generates markov logic for an equationb
+   */
   private def equationToMarkovLogic(lhs: String, op: String, rhs: String): String = {
     val (lhRelationName, lhAttributeName) = splitUpRelationIdentifier(lhs)
     val (rhRelationName, rhAttributeName) = splitUpRelationIdentifier(rhs)
