@@ -9,17 +9,17 @@ class MdRuleParser() extends JavaTokenParsers {
   
   private var _mdRule: MdRule = null
   
-	private val relationIdentifier = """[a-zA-Z0-9-_]+\[[a-zA-Z0-9-_]+\]""".r
-  private val equalsIdentifier = """(=|!=)""".r
+	private def relationIdentifier = """[a-zA-Z0-9-_]+\[[a-zA-Z0-9-_]+\]""".r
+  private def equalsIdentifier = """(=|!=)""".r
   
-  private val combination: Parser[Expr] = chainl1(equation, "^" ^^^ And)
+  private def combination: Parser[Expr] = chainl1(equation, "^" ^^^ And)
   
-  private val equation = relationIdentifier ~ equalsIdentifier ~ relationIdentifier ^^ 
+  private def equation = relationIdentifier ~ equalsIdentifier ~ relationIdentifier ^^ 
     { case lhs ~ op ~ rhs => Equals(lhs, op, rhs) } | combination 
   
-  private val rulePrefix =  """md[0-9]*:\s*""".r
+  private def rulePrefix =  """md[0-9]*:\s*""".r
     
-  private val rule = rulePrefix ~ combination  ~ """-\>""".r ~ 
+  private def rule = rulePrefix ~ combination  ~ """-\>""".r ~ 
     relationIdentifier ~ """<->""".r ~ relationIdentifier ^^ {
     case _ ~ ast ~ _ ~ lhs ~ _ ~ rhs => _mdRule.setRule(ast, lhs, rhs)
   }
