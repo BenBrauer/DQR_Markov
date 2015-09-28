@@ -32,7 +32,7 @@ object Rules extends Controller {
       mapping(
         "id" -> longNumber,
         "label" -> text(minLength = 0, maxLength = 255),
-        "rule" -> text(minLength = 0, maxLength = 500),//.verifying(ruleValidationConstraint),
+        "rule" -> text(minLength = 0, maxLength = 500),
         "dataset_id" -> longNumber
           )(RuleData.apply)(RuleData.unapply)
   )

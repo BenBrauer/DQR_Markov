@@ -33,6 +33,11 @@ class CfdRuleParser() extends RegexParsers {
   private def rule: Parser[CfdRule] = rulePrefix ~ relationIdentifier ~
     """\(""".r ~ functionalExpression ~ """,""".r  ~ tuple ~ """\)""".r ^^ { _ => this._cfdRule}
   
+  /**
+   * Parses a conditional functional dependency rule in first order logic text into a CfdRule object instance
+   * 
+   * @param ruleText rule text in first order logic
+   */
   def parse(ruleText: String): (Boolean, CfdRule) ={ 
     _cfdRule = new CfdRule(ruleText)
     parseAll(rule, _cfdRule.ruleText) match {

@@ -83,7 +83,9 @@ object Browser extends Controller {
   }
   
   /**
-   * Returns an Action which starts the view to show a relation
+   * Returns an Action which starts the view to show a Relation
+   * 
+   * @param id the id of the Relation to be shown in the view 
    */
   def showRelation(id: Long) = Action {
     Ok(views.html.relation(Relation.byId(id)))

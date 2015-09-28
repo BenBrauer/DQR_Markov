@@ -37,7 +37,7 @@ case class Relation(id: Long, label: String, data: String, dataset_id: Long) {
 }
 
 /**
- * Relation companion object provides funtionality to create, delete and read relations from the database
+ * Relation companion object provides functionality to create, delete and read relations from the database
  */
 object Relation {
   

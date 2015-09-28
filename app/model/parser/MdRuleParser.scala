@@ -24,8 +24,12 @@ class MdRuleParser() extends JavaTokenParsers {
     case _ ~ ast ~ _ ~ lhs ~ _ ~ rhs => _mdRule.setRule(ast, lhs, rhs)
   }
   
-  
-   def parse(ruleText: String): (Boolean, MdRule) ={ 
+  /**
+   * Parses a matching dependency rule in first order logic notation into a MdRule object instance
+   * 
+   * @param ruleText matching dependency rule text in first order logic notation 
+   */
+  def parse(ruleText: String): (Boolean, MdRule) ={ 
     _mdRule = new MdRule(ruleText)
     parseAll(rule, _mdRule.ruleText) match {
       case Success(result, _) => (true,result)

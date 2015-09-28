@@ -10,6 +10,8 @@ object DatasetCompiler {
   
   /**
    * Compiles a dataset to observed and hidden markov logic predicates
+   * 
+   * @param set Dataset to be compiled into markov logic
    */
   def apply(set: Dataset): String = {
     //generate predicates for relation columns 

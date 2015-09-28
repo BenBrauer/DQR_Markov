@@ -9,6 +9,8 @@ object CfdRuleCompiler {
  
   /**
    * Compiles CfdRules to markov mogic
+   * 
+   * @param rule the CfdRule object to be compiled to markov logic
    */
   def apply(rule: CfdRule): String = {
     //create attribute value pairs 

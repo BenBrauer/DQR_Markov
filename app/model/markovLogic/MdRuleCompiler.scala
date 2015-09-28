@@ -12,6 +12,8 @@ object MdRuleCompiler {
    
   /**
    * Compiles MdRule to markov logic
+   * 
+   * @param rule MdRule to be compiled into markov logic
    */
   def apply(rule: MdRule): String = {
      return exprToMarkovLogic(rule.conditionalExpr) + " => " + 
